@@ -1,0 +1,470 @@
+google cloud - Install Virtual machine (ssh, https)
+sudo bash
+yum install -y git
+
+git --version
+cd /tmp
+initilize in that particular directory structure
+cd edureka (Working Directory)
+pwd
+ls -alrt - all hidden files in this folder
+git init
+ls -alrt
+vi a.txt - :wq!
+ls
+ls -alrt
+Working directory to remote repo
+WD - local repo- remote
+git status
+WD to local repo
+
+Corporate environment - LDAP Authentication
+manually
+git config user.name "Pawan"
+git config user.email "pshetty6@dxc.com"
+git status
+
+to promote WD to Staging Area to local repo
+Git Add a.txt
+git status
+git commit - m "Comment Message"
+git status
+ls
+git ls-files - list all files in local repo
+
+vi b.txt :wq!
+vi c.txt :wq!
+git add . or * (to promote all untraced files i.e. multiple files)
+git commit -m "adding b.txt and c.txt"
+ls
+git ls-files
+git status
+
+after promoting u made changes to existing file in local directory
+working directory file changed
+vi a.txt wq!
+git status
+now sync file to local repository
+git add a.txt
+git commit -m "modified a.txt"
+git status
+
+vi b.txt :wq!
+instead of git add and git commit 
+use git commit -a -m "modified b.txt"
+only works if file has been added originally to local repo
+git status
+
+default is master branch
+Scenario 1 
+remove file from working Direc and local repo
+git rm c.txt
+ls
+git ls-files
+git status what is output?
+git status
+git commit -m "Deleted file c.txt"
+git status
+
+Scenario 2
+git ls-files
+Delete only from local repo and not from Working Direc
+git rm --cached b.txt
+ls
+git ls-files
+git status what it will complain or not?
+git status always track changes between WD and local repo
+
+git add b.txt
+git commit -m "readded b.txt"
+git status
+git ls-files
+ls
+
+Scenario 3
+rm a.txt (deletes from Working Direc)
+ls
+git ls-files
+git status?
+git commit -a -m "Deleted a.txt"
+ls
+git ls-files
+Git always compare working directory with local repo 
+but not vice versa
+git status
+
+in your working directory you have critical or secret files
+make sure these files are not tracked
+use git ignore
+.gitignore
+
+
+vi password
+git status
+vit .gitignore
+password
+:wq!
+git add .gitignore
+git commit -m "Added Git Ignore"
+git status
+ls
+git ls-files
+
+
+Another file not to be tracked to git
+
+vi pawan
+vi .gitignore
+pawan
+:wq!
+git status
+ls
+git ls-files
+
+git commit -a -m "Added Pawan to ignore"
+
+
+how does git log data or save things?
+Any change in world of git is called as commit
+history of logs and changes made
+git log
+has commit id, who made change, when change was made
+what was change made
+
+git log --oneline
+git show usecommitId
+--- means deleted
++++ means added
+
+--- means file is new
+
+
+git show commitId
+
+
+
+
+
+
+
+
+
+
+
+to promote from local repo to remote repo
+
+
+Google Search -
+Git for windows
+https://git-scm.com/download - 64 bit
+
+Deleted the file a.txt
+now I need to get the file back or undo that change
+git revert commitId
+ls
+git ls-files
+git status
+
+technologies - powershell, shell 
+git tagging - 
+git log --oneline
+
+git tag to identify important or distinguish specific commits
+tagging can only be applied commit has been completed
+
+git tag -a "tagName v1.0" -m "Creating first tag" CommitId
+git status
+git log --oneline
+git tag -to list what all tags exist and gets listed
+
+git show tagId to see tag related commit
+Git Tag to only one commit at a time
+
+Git reset - Git cannot revert back
+git log --online
+Git reset - cannot roll the command back. everything is gone. basically the pointer resets. will just reset everything
+full fledget reset cannot revert back
+everything including log even files so carefully use git reset
+
+git log --oneline
+git ls-files
+git status
+git add .
+git commit -m "Adding untracked files"
+
+git log --oneline
+git amend only works on latest(last) commit
+change latest commit message then use ammend
+git commit --amend -m "changing commit message"
+
+git diff for comparing commits
+git diff commitId1 commitId2
+
+git config --list
+
+git config --edit
+
+
+Find exact difference between two commit Ids
+Branching allows parallel development
+master is main code base where all info gets stored
+Parallel or Feature branch
+git branch
+Master is also code base
+Branching & Merging
+No limit on number of branches
+Branch is a copy of code base
+
+Creating a new Branch
+git checkout -b BranchName master
+git checkout -b B1 master
+git branch
+* sign represents current active branch logged in
+what ever changes made will be applied into branch prefixed with *
+
+vi branch.txt
+git add branch.txt
+git commit -m "added file branch.txt"
+git status
+ls 
+git ls-files
+git log --online
+thsi file got added in b1 branch
+
+switch or change current branch from B1 to master
+git checkout master
+
+git branch
+
+ls
+git log --oneline
+
+****merge all changes from B1 branch to Master branch
+1. log into  branch master
+verify with git branch
+
+2. git merge b1
+all changes in b1 and not in master will get merged to master
+
+ls - to check files in working directory
+git ls-files - to check files in local repository
+git status
+
+files modified B1 branch and master branch
+a.txt modified directly in master branch scenario
+vi a.txt
+git commit -a -m "modified a.txt"
+git checkout b1
+ls
+vi a.txt
+
+git commit -a -m "modified in b1 branch"
+
+git checkout master
+git merge b1
+conflict merging message displays
+
+Git is just version control tool
+
+vi a.txt
+======== is a divider
+changes above divider from master
+changes below divider is from B1 branch
+
+
+Resolve conflicts
+remove special characters
+
+git commit --m -a "removed conflicts"
+git status
+
+changes done in any branch doesnot get reflect automatically in other branches
+
+Drawback of Branching and Merging strategy
+Scenario - Syc master branch to feature branch
+
+git checkout b1 branch
+ls
+vi e.txt
+git add e.txt
+git commit -m "adding e.txt"
+vi f.txt
+git add f.txt
+git commit -m "adding file f.txt"
+git log --online
+git status
+ls
+git ls-files
+git status
+
+
+git cherrypick
+only merge commitID from feature branch specific to master branch
+
+git checkout master
+git cherry-pick commitId
+overcomes git merge drawback of merging everything
+
+ls
+git ls-online
+git status
+git log --oneline
+
+git branch
+
+git checkout master
+git merge b1
+
+git ls-files
+looking for changes to master branch
+vi testPawan
+git add testPawan
+git commit -m "added testPawan"
+
+git sync feature branch b1 with master branch
+
+git checkout b1
+git merge master
+
+all changes in master get merged to b1
+
+
+git checkout master
+vi karthik
+git add karthik
+git commit -m "adding karthik"
+git status
+ls
+git ls-files
+
+git checkout b1
+git rebase master
+all gets replicated or copied to B1
+
+
+uses master a grape layer of repository
+
+
+git merge vs git rebase
+
+git merge allows to merge branches
+rebase only works with master
+
+git stash
+how does git stash works
+
+Git Lab (AWS biggest investor), Git Hub (Microsoft)
+
+
+allows free enterprise tier as many public or private
+enterprise can also be installed in own data center
+
+
+
+Creating Github account
+log in to https://Github.com
+
+Click Signup
+Github1234!
+pshetty6@dxc.com
+DevOps-Trainer2022
+
+Push a local repository to Github(remote) repo
+pwd
+
+git remote add origin git@github.com:devopstrainer1/1007.git
+
+git remote -v   gives path of remote repo path and local repo path
+
+since june 2021 it doesnot allow password based authentication but only allows key based authentication
+generate pair of public private key
+
+
+ssh-keygen
+enter key ssh
+
+cd ~/.ssh
+ls -lrt
+
+
+cat id_rsa.pub
+copy the content of public key to establlish trust or authenticcation between local repo and remote repo
+now go back to remote repo and click on settings menu
+paste this key in Github website sub menu deploy keys on left side - 
+give title, add key
+allow write access
+click on Add Key
+
+
+Now add people as collaborators (click on collaborators submenu on left side)
+
+cd tmp/edureka
+Now push changes from local to remote repository
+remote repository path was set with keyword origin
+git push origin master
+select yes continue connecting (MD5 key verification)
+all changes in local repo branch syncs up to remote repository
+
+to push other changes branch to remote repository
+git push origin b1
+
+now working from REMOTE REPO
+Some developer mades changesinto master branch
+Now download changes from remote repository to local repository
+Git Pull origin master
+ls
+git ls-files
+git status
+
+
+Git clone command
+copy from remote repo to non git initialize directory
+use git clone remote repopath
+ls -alrt
+
+
+git pull only downolads changes made in remote repo to local repo
+
+git clone copy entire repo to local non git init folder
+
+git forking - forking a repository
+it only works in remote repo and not in local repo
+
+copy the contents from other repository to my repository
+https://github.com/google/googletest to my remote repository
+Click on the fork icon on right side 
+
+Git clone works when u want to download from remote to local
+
+git fork clones from one remote repository to another remote repository
+
+git fetch v/s git pull
+git pull = git fetch + git merge
+all changes get downloaded from remote repo not in local repo and copies to local repo
+
+git fetch - says what changes exist in remote repo and not in local repo
+
+git cheat sheet
+
+git clone a specific branch b1
+
+Tracking through Project Management
+https://docs.github.com/en/issues/planning-and-tracking-with-projects
+
+https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features
+
+https://docs.github.com/en/get-started/quickstart/github-flow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
